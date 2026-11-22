@@ -9,11 +9,12 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "numpy>=2.5.4",
+    "pydantic>=2.12,<3",
     "torch>=2.15.0",
 ]
 
 [project.scripts]
-mini-gpt = "mini_gpt.__main__:main"
+mini-gpt = "mini_gpt.demo:demo"
 
 [build-system]
 requires = ["hatchling"]
