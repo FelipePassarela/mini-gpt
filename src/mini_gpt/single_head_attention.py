@@ -5,20 +5,20 @@ from torch import Tensor, nn
 
 
 class SingleHeadAttention(nn.Module):
-    def __init__(self, dim: int) -> None:
+    def __init__(self, model_dim: int) -> None:
         super().__init__()
 
-        self._dim = dim
-        self.w_q = nn.Linear(dim, dim)
-        self.w_k = nn.Linear(dim, dim)
-        self.w_v = nn.Linear(dim, dim)
+        self._model_dim = model_dim
+        self.w_q = nn.Linear(model_dim, model_dim)
+        self.w_k = nn.Linear(model_dim, model_dim)
+        self.w_v = nn.Linear(model_dim, model_dim)
 
     def forward(self, x: Tensor) -> Tensor:
         queries: Tensor = self.w_q(x)
         keys: Tensor = self.w_k(x)
         values: Tensor = self.w_v(x)
 
-        scores = queries @ keys.mT / sqrt(self.dim)
+        scores = queries @ keys.mT / sqrt(self.model_dim)
         masked_scores = self._mask_future_tokens(scores)
         attention_weights = torch.softmax(masked_scores, dim=-1)
 
@@ -33,5 +33,5 @@ class SingleHeadAttention(nn.Module):
         return scores.masked_fill(future_tokens, value=float("-inf"))
 
     @property
-    def dim(self) -> int:
-        return self._dim
+    def model_dim(self) -> int:
+        return self._model_dim
