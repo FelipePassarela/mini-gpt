@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-mini-gpt = "mini_gpt.__main__:main"
+mini-gpt = "mini_gpt.demo:demo"
 
 [build-system]
 requires = ["hatchling"]

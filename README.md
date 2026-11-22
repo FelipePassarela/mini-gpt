@@ -1,6 +1,6 @@
 # mini-gpt
 
-## Token embeddings and Transformer block demo
+## Next-token prediction demo
 
 Run the demo from the project root.
 
@@ -8,11 +8,9 @@ Run the demo from the project root.
 uv run mini-gpt
 ```
 
-The demo starts with a fixed sequence of four integer token IDs.
-`TokenAndPositionEmbeddings` adds a learned token vector and a learned position
-vector for each ID. A causal `TransformerBlock` transforms those vectors into
-hidden states.
+`MiniGPT()` processes the prompt `[1, 0, 6, 5]` and returns logits with shape
+`(4, 65)`, one score per vocabulary token at each input position. The demo uses
+the logits from the last position, normalizes them across the vocabulary, and
+prints the five most likely next token IDs with their probabilities.
 
-The command prints the input IDs and a `(4, 3)` tensor with one three-dimensional
-hidden state per token. The weights are randomly initialized, so the values can
-vary between runs.
+The weights are randomly initialized, so the results can vary between runs.
